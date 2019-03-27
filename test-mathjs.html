@@ -8,10 +8,14 @@
   <body>
     <h3>Test page.simplify</h1>
     <div>
+      <label for="inputName">Input: </label>
       <input id="inputText" type="text" name="inputName" value="" placeholder="type expr here"/> 
       <br />
-      <button id="simplifyBtn">Simplify!</button>
+      <button id="simplifyBtn">simplify</button>
+      <button id="rationalizeBtn">rationalize</button>
+      <button id="newSimplifyBtn">new simplify</button>
       <br />
+      <label for="outputName">Output: </label>
       <input id="outputText" type="text" name="outputName" value="" readonly/> 
     </div>
     <script src="node_modules/mathjs/dist/math.js"></script>

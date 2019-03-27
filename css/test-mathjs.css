@@ -6,7 +6,20 @@ input {
   margin-bottom: 20px;
 }
 
+#inputText, #outputText {
+  border:1px solid gray;
+}
 
 button {
-    font-size:16px;
+  font-size:16px;
+  margin-left: 50px;
+}
+
+#newSimplifyBtn {
+  color:blue;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: light-gray;
+  opacity: 0.5;
 }
