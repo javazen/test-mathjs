@@ -1,15 +1,16 @@
 (function() {
   'use strict';
   
+  var LOGGING = true;
+  
   var termRules = [
     'c*n1/(n2/n3) -> (c*n1*n3)/n2',
     'n1/(n2*n1) -> 1/n2',
     'c*n1/(n2*n1) -> c/n2',
     'n1/n2/n3 -> n1/(n2*n3)',
   ];
-
   
-  var inputText, outputText;
+  var inputText, outputText, opNumber=1000;
   
   document.addEventListener("DOMContentLoaded", function(event) { 
     inputText = document.getElementById("inputText");
@@ -27,18 +28,21 @@
     var text = inputText.value;
     var newText = math.simplify(text);
     outputText.value = newText;
+    log(text, 'simplify', newText);
   }
   
   function callRationalize() {
     var text = inputText.value;
     var newText = math.rationalize(text);
     outputText.value = newText;
+    log(text, 'rationalize', newText);
   }
   
   function callNewSimplify() {
     var text = inputText.value;
     var newText = newSimplify(text);
     outputText.value = newText;
+    log(text, 'newSimplify', newText);
   }
   
   // more thorough than math.simplify
@@ -111,6 +115,11 @@
     var resultObj = math.rationalize(node, {}, true);
     var count = resultObj.variables.length;
     return count;
+  }
+  
+  function log(text, operation, newText) {
+    if (LOGGING) console.log('' + opNumber + '  ' + text + '  ---  ' + operation + '  --->  ' + newText);
+    opNumber++;
   }
 
   function isTerm(node) {
