@@ -7,7 +7,10 @@
     "jshint": "jshint ./src/*.js; true",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["math", "javascript"],
+  "keywords": [
+    "math",
+    "javascript"
+  ],
   "author": "Sam Ragucci",
   "license": "ISC",
   "dependencies": {
