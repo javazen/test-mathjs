@@ -123,15 +123,17 @@
   }
 
   function isTerm(node) {
-    var term = true;
+    var term = !!node;
     
-    node.traverse(function(n) {
-      if (node.type === 'OperatorNode') {
-        if (node.op !== '*' && node.op !== '/') {
-          term = false;
+    if (node) {
+      node.traverse(function(n) {
+        if (node.type === 'OperatorNode') {
+          if (node.op !== '*' && node.op !== '/') {
+            term = false;
+          }
         }
-      }
-    });
+      });
+    }
     
     return term;
   }
