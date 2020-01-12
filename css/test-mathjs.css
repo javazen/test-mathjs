@@ -1,3 +1,26 @@
+#container {
+  text-align: center;
+}
+
+h2 {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#logo {
+  vertical-align: middle;
+}
+
+.rightSideContainer {
+  text-align: right;
+}
+
+.rightSideDocs {
+  display: inline-block;
+  width: 100px;
+  text-align: center;
+}
+
 input {
   font-family: Lucida Grande,Lucida Sans,Arial,sans-serif;
 	font-size:16px;
@@ -17,6 +40,18 @@ button {
 
 #newSimplifyBtn {
   color:blue;
+}
+
+.infoText {
+  width: 80px;
+}
+
+.underlined {
+  text-decoration: underline;
+}
+
+button:hover {
+  background-color: #aaa;
 }
 
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */

@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "jshint": "jshint ./src/*.js; true",
+    "eslint": "eslint ./src/*.js; true",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -14,6 +15,9 @@
   "author": "Sam Ragucci",
   "license": "ISC",
   "dependencies": {
-    "mathjs": "^5.4.2"
+    "mathjs": "^6.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^6.2.2"
   }
 }

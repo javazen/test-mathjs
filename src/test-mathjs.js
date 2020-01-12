@@ -11,6 +11,8 @@
   ];
   
   var inputText, outputText, opNumber=1000;
+  var origCountInput, origDepthInput, outputCountInput, outputDepthInput;
+  // var history = [];
   
   document.addEventListener("DOMContentLoaded", function(event) { 
     inputText = document.getElementById("inputText");
@@ -21,21 +23,77 @@
     rationalizeBtn.onclick = callRationalize;
     var newSimplifyBtn = document.getElementById("newSimplifyBtn");
     newSimplifyBtn.onclick = callNewSimplify;
+    var outputToInputBtn = document.getElementById("outputToInputBtn");
+    outputToInputBtn.onclick = callOutputToInput;
+    // var goBackBtn = document.getElementById("goBackBtn");
+    // goBackBtn.onclick = callGoBack;
+    
+    origCountInput = document.getElementById("origCount");
+    origDepthInput = document.getElementById("origDepth");
+    outputCountInput = document.getElementById("outputCount");
+    outputDepthInput = document.getElementById("outputDepth");
   });
   
   
   function callSimplify() {
     var text = inputText.value;
-    var newText = math.simplify(text);
-    outputText.value = newText;
-    log(text, 'simplify', newText);
+    var origInfo = getInfo(text);
+    updateInfo(origInfo, origCountInput, origDepthInput);
+    var newRoot = math.simplify(text);
+    var newInfo = getInfo(newRoot);
+    updateInfo(newInfo, outputCountInput, outputDepthInput);
+    outputText.value = newRoot;
+    log(text, 'simplify', newRoot);
+    // if (LOGGING) console.log('callRationalize: origInfo = ' + printInfo(origInfo) + ' newInfo = ' + printInfo(newInfo));
   }
   
   function callRationalize() {
     var text = inputText.value;
-    var newText = math.rationalize(text);
-    outputText.value = newText;
-    log(text, 'rationalize', newText);
+    var origInfo = getInfo(text);
+    updateInfo(origInfo, origCountInput, origDepthInput);
+    var newRoot = math.rationalize(text);
+    var newInfo = getInfo(newRoot);
+    updateInfo(newInfo, outputCountInput, outputDepthInput);
+    outputText.value = newRoot;
+    log(text, 'rationalize', newRoot);
+    // if (LOGGING) console.log('callRationalize: origInfo = ' + printInfo(origInfo) + ' newInfo = ' + printInfo(newInfo));
+  }
+
+  function callOutputToInput() {
+    var text = outputText.value;
+    inputText.value = text;
+    outputText.value = '';
+    log(text, 'outputToInput', '');
+  }
+  
+  // function callGoBack() {
+  // }
+  
+  
+  function printInfo(infoObj) {
+    return '{count:' + infoObj.count + ', depth:' + infoObj.depth + '}';
+  }
+  
+  function valueInfo(infoObj) {
+    // it may turn out to be better to add a weighting, for now just add them together
+    return infoObj.count + infoObj.depth;
+  }
+  
+  function updateInfo(infoObj, countInput, depthInput) {
+    countInput.value = infoObj.count;
+    depthInput.value = infoObj.depth;
+  }
+  
+  function getInfo(text) {
+    var rootnode, count, depth;
+    try {
+      rootnode = (math.isNode(text)) ? text : math.parse(text);
+      count = varCount(rootnode);
+      depth = parseTreeDepth(rootnode);
+    } catch(e) {
+      if (LOGGING) console.log('cannot parse ' + text + ' parse err: ' + e);
+    }
+    return {count:count, depth:depth};
   }
   
   function callNewSimplify() {
@@ -111,31 +169,105 @@
     return math.rationalize(expr, {});
   }
   
+  function parseTreeDepth(node) {
+    var depth = 0;
+    if (node) {
+      if (typeof node === 'string') {
+        // see if formula was passed rather than the node
+        var f = node;
+        try {
+          node = math.parse(f);
+        } catch (e) {
+          if (LOGGING) console.log('cannot parse ' + f + ' err= ' + e);
+        }
+      }
+      switch (node.type) {
+        case 'ConstantNode':
+          depth = 0;
+          break;
+        case 'SymbolNode':
+          depth = 1;
+          break;
+        case 'ParenthesisNode':
+          // this works because the content of the parens is the correct parse tree
+          depth = parseTreeDepth(node.getContent());
+          break;
+        case 'FunctionNode':
+          depth = adjustedDepthOfChildren(node.getContent(), 1);
+          break;
+        case 'OperatorNode':
+          depth = adjustedDepthOfChildren(node, 2);
+          break;
+        default:
+          break;
+      }
+    }
+    return depth;
+  }
+
+  // minBranches is the min number of non-zero branches we require in order
+  // to augment the depth by 1 for the operator itself
+  function adjustedDepthOfChildren(node, minBranches) {
+    var i, depth, max = 0, branches = 0, childnodes = node.args;
+    for (i=0; i<childnodes.length; i++) {
+      var child = childnodes[i];
+      var childDepth = parseTreeDepth(child);
+      if (childDepth > max) max = childDepth;
+      if (childDepth > 0) branches++;
+    }
+    var maybeAddOne = (branches >= minBranches) ? 1 : 0;
+    depth = (max === 0) ? 0 : max + maybeAddOne;
+    return depth;
+  }
+
   function varCount(node) {
-    var resultObj = math.rationalize(node, {}, true);
-    var count = resultObj.variables.length;
+    var count = 0;
+    try {
+      var resultObj = math.rationalize(node, {}, true);
+      count = resultObj.variables.length;
+    } catch (e) {
+      var f = (math.isNode(node)) ? node.toString() : node;
+      if (LOGGING) console.log('cannot parse ' + f + ' err= ' + e);
+    }
     return count;
   }
+
   
   function log(text, operation, newText) {
     if (LOGGING) console.log('' + opNumber + '  ' + text + '  ---  ' + operation + '  --->  ' + newText);
     opNumber++;
   }
 
+  // make sure this works when passed falsy node
   function isTerm(node) {
-    var term = !!node;
+    var term = true;
     
-    if (node) {
-      node.traverse(function(n) {
-        if (node.type === 'OperatorNode') {
-          if (node.op !== '*' && node.op !== '/') {
-            term = false;
-          }
+    node.traverse(function(n) {
+      if (n.type === 'OperatorNode') {
+        if (n.op !== '*' && n.op !== '/') {
+          term = false;
         }
-      });
-    }
+      }
+    });
     
     return term;
   }
+
+
+  // function isTerm(node) {
+  //   var term = !!node;
+  // 
+  //   if (node) {
+  //     node.traverse(function(n) {
+  //       if (node.type === 'OperatorNode') {
+  //         if (node.op !== '*' && node.op !== '/') {
+  //           term = false;
+  //         }
+  //       }
+  //     });
+  //   }
+  // 
+  //   return term;
+  // }
   
 }());

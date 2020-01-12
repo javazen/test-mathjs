@@ -1,0 +1,22 @@
+{
+  "validthis": true,
+  "undef": true,
+  "elision": true,
+  "browser": true,
+  "multistr": true,
+  "esversion": 6,
+  "-W080": true,
+  "-W041": false,
+  "globals": {
+    "console": true,
+    "$": true,
+    "d3": true,
+    "jQuery": true,
+    "math": true,
+    "Map": true,
+    "pv": true,
+    "tableau": true,
+    "tdgchart": true,
+    "whatif": true
+  }
+}

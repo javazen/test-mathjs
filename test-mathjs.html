@@ -1,24 +1,51 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <title>test-mathjs</title>
     <link rel="stylesheet" href="css/test-mathjs.css" />
-  </head>
-  <body>
-    <h3>Test page.simplify</h1>
-    <div>
-      <label for="inputName">Input: </label>
-      <input id="inputText" type="text" name="inputName" value="" placeholder="type expr here"/> 
-      <br />
-      <button id="simplifyBtn">simplify</button>
-      <button id="rationalizeBtn">rationalize</button>
-      <button id="newSimplifyBtn">new simplify</button>
-      <br />
-      <label for="outputName">Output: </label>
-      <input id="outputText" type="text" name="outputName" value="" readonly/> 
-    </div>
     <script src="node_modules/mathjs/dist/math.js"></script>
     <script src="src/test-mathjs.js"></script>
+  </head>
+  <body>
+    <div id="container">
+      <h2>Simplifying expressions in </h2>
+      <a href="https://mathjs.org/" target="_blank">
+        <img id="logo" src="./mathjs_100x30.png" />
+      </a>
+      <br />
+      
+      <div class="rightSideContainer">
+        <div class="rightSideDocs">
+          <p class="underlined">Documentation</p>
+          <a href="https://mathjs.org/docs/reference/functions/simplify.html" target="_blank">math.simplify</a><br />
+          <a href="https://mathjs.org/docs/reference/functions/rationalize.html" target="_blank">math.rationalize</a>
+        </div>
+      </div>
+      <br />
+      
+      <div>
+        <label for="inputName">Input: </label>
+        <input id="inputText" type="text" name="inputName" value="" placeholder="type expr here"/> 
+        <label for="origCountName">Count: </label>
+        <input id="origCount" class="infoText" type="text" name="origCountName" value="" readonly/> 
+        <label for="origDepthName">Depth: </label>
+        <input id="origDepth" class="infoText" type="text" name="origDepthName" value="" readonly/> 
+        <br />
+        <button id="simplifyBtn">simplify</button>
+        <button id="rationalizeBtn">rationalize</button>
+        <button id="newSimplifyBtn">new simplify</button>
+        <br />
+        <label for="outputName">Output: </label>
+        <input id="outputText" type="text" name="outputName" value="" readonly/> 
+        <label for="outputCountName">Count: </label>
+        <input id="outputCount" class="infoText" type="text" name="outputCountName" value="" readonly/> 
+        <label for="outputDepthName">Depth: </label>
+        <input id="outputDepth" class="infoText" type="text" name="outputDepthName" value="" readonly/> 
+      </div>
+      <!-- <button id="goBackBtn">Back</button> -->
+      <button id="outputToInputBtn">Output to Input</button></button>
+
+    </div>
   </body>
 </html>
