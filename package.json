@@ -15,7 +15,8 @@
   "author": "Sam Ragucci",
   "license": "ISC",
   "dependencies": {
-    "mathjs": "^6.0.0"
+    "mathjs": "^6.0.0",
+    "minimist": ">=1.2.2"
   },
   "devDependencies": {
     "eslint": "^6.2.2"
