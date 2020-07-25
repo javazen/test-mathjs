@@ -15,7 +15,7 @@
   "author": "Sam Ragucci",
   "license": "ISC",
   "dependencies": {
-    "mathjs": "^6.0.0",
+    "mathjs": "^6.6.5",
     "minimist": ">=1.2.2"
   },
   "devDependencies": {
