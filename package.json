@@ -4,8 +4,8 @@
   "description": "for testing mathjs-related code",
   "main": "index.js",
   "scripts": {
-    "jshint": "jshint ./src/*.js; true",
     "eslint": "eslint ./src/*.js; true",
+    "jshint": "jshint ./src/*.js; true",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -19,6 +19,9 @@
     "minimist": ">=1.2.2"
   },
   "devDependencies": {
-    "eslint": "^6.2.2"
+    "chai": "^4.2.0",
+    "eslint": "^7.5.0",
+    "mocha": "^8.0.0",
+    "requirejs": "^2.3.6"
   }
 }
