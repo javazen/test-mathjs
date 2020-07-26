@@ -70,14 +70,14 @@
   // }
   
   
-  function printInfo(infoObj) {
-    return '{count:' + infoObj.count + ', depth:' + infoObj.depth + '}';
-  }
-  
-  function valueInfo(infoObj) {
-    // it may turn out to be better to add a weighting, for now just add them together
-    return infoObj.count + infoObj.depth;
-  }
+  // function printInfo(infoObj) {
+  //   return '{count:' + infoObj.count + ', depth:' + infoObj.depth + '}';
+  // }
+  // 
+  // function valueInfo(infoObj) {
+  //   // it may turn out to be better to add a weighting, for now just add them together
+  //   return infoObj.count + infoObj.depth;
+  // }
   
   function updateInfo(infoObj, countInput, depthInput) {
     countInput.value = infoObj.count;
