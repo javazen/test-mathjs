@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Mocha Tests</title>
+  <link rel="stylesheet" href="../node_modules/mocha/mocha.css" />
+  <script src="../node_modules/mathjs/lib/browser/math.js"></script>
+  <script src="../node_modules/chai/chai.js"></script>
+  <script src="../node_modules/mocha/mocha.js"></script>
+
+  <script>mocha.setup('tdd')</script>
+
+  <!- src files to be tested /!->
+  <script src="../src/test-mathjs.js"></script>
+
+  <!-files containing the tests /-!>
+  <script src="spec/test_math.js"></script>
+</head>
+<body>
+  <div id="mocha"></div>
+
+    <script>
+		function setup() {
+		    mocha.run();
+		}
+
+		setup();
+
+    </script>
+</body>
+</html>
+
+
+<!-- <script src="../node_modules/mathjs/dist/math.js"></script> -->

@@ -1,7 +1,10 @@
+//module.exports = { something: 'value' };
+
 (function() {
   'use strict';
   
   var LOGGING = true;
+  var TESTING = true;
   
   var termRules = [
     'c*n1/(n2/n3) -> (c*n1*n3)/n2',
@@ -15,23 +18,25 @@
   // var history = [];
   
   document.addEventListener("DOMContentLoaded", function(event) { 
-    inputText = document.getElementById("inputText");
-    outputText = document.getElementById("outputText");
-    var simplifyBtn = document.getElementById("simplifyBtn");
-    simplifyBtn.onclick = callSimplify;
-    var rationalizeBtn = document.getElementById("rationalizeBtn");
-    rationalizeBtn.onclick = callRationalize;
-    var newSimplifyBtn = document.getElementById("newSimplifyBtn");
-    newSimplifyBtn.onclick = callNewSimplify;
-    var outputToInputBtn = document.getElementById("outputToInputBtn");
-    outputToInputBtn.onclick = callOutputToInput;
-    // var goBackBtn = document.getElementById("goBackBtn");
-    // goBackBtn.onclick = callGoBack;
-    
-    origCountInput = document.getElementById("origCount");
-    origDepthInput = document.getElementById("origDepth");
-    outputCountInput = document.getElementById("outputCount");
-    outputDepthInput = document.getElementById("outputDepth");
+    if (!TESTING) {
+      inputText = document.getElementById("inputText");
+      outputText = document.getElementById("outputText");
+      var simplifyBtn = document.getElementById("simplifyBtn");
+      simplifyBtn.onclick = callSimplify;
+      var rationalizeBtn = document.getElementById("rationalizeBtn");
+      rationalizeBtn.onclick = callRationalize;
+      var newSimplifyBtn = document.getElementById("newSimplifyBtn");
+      newSimplifyBtn.onclick = callNewSimplify;
+      var outputToInputBtn = document.getElementById("outputToInputBtn");
+      outputToInputBtn.onclick = callOutputToInput;
+      // var goBackBtn = document.getElementById("goBackBtn");
+      // goBackBtn.onclick = callGoBack;
+      
+      origCountInput = document.getElementById("origCount");
+      origDepthInput = document.getElementById("origDepth");
+      outputCountInput = document.getElementById("outputCount");
+      outputDepthInput = document.getElementById("outputDepth");
+      }
   });
   
   
