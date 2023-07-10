@@ -4,7 +4,7 @@
   'use strict';
   
   var LOGGING = true;
-  var TESTING = true;
+  var TESTING = false;
   
   var termRules = [
     'c*n1/(n2/n3) -> (c*n1*n3)/n2',
