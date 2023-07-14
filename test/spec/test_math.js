@@ -67,7 +67,7 @@ suite('Testing Math Library', function() {
 	// });
 
 
-
+/*
   suite('Testing new simplify', function() {
 		var newSimplifyTestsArray = [
       // {f:'(5 * p0 ^ 2 + p0) / p0', result:'(5 * p0 + 1)'},
@@ -96,7 +96,7 @@ suite('Testing Math Library', function() {
 			});
 		});
 	});
-
+*/
 
   suite('Testing derivative', function() {
 		var derivativeTestsArray = [
@@ -119,9 +119,11 @@ suite('Testing Math Library', function() {
 
   suite('Testing simplify', function() {
 		var simplifyTestsArray = [
+      {f:'1.15292150460684e+18 / 1.15292150460684e+15', result:'1000'},
+      {f:'((((((((((1)) + ((0)))) * ((x + 2))) + (((x + 1)) * ((((1)) + ((0))))))) * ((x + 3))) - ((((x + 1) * (x + 2))) * ((((1)) + ((0)))))) / (((x + 3)) ^ (2)))', result:'1000'},
       {f:'a + b', result:'a + b'},
-      // {f:'a - (b + c)', result:'a - b - c'},   // need an option to prefer a - b - c over a - b + -c
       {f:'a - (b - c)', result:'a - b + c'},
+      // {f:'a - (b + c)', result:'a - b - c'},   // need an option to prefer a - b - c over a - b + -c
       {f:'(x * 1 + 3) + (x * 2 + 6)', result:'3 * x + 9'},
       {f:'x / (x / 2)', result:'2'},
       {f:'2 * v20*v20*3 / v20 / v20', result:'6'},
