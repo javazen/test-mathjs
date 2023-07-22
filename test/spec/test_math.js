@@ -1,10 +1,12 @@
 (function test_mathIIFE() {
 'use strict';
-console.log('load of test/spec/test_math.js');
 var DEBUG = true;
+if (DEBUG) console.log('load of test/spec/test_math.js');
 var expect = chai.expect;
-var page;
 
+math.config({number: 'BigNumber'});
+
+/*
 function safeParse(expr) {
 	var node = null;
 	
@@ -36,6 +38,7 @@ function checkExpressions(actual, expected) {
     expect(actualStr).to.deep.equal(expectedStr);
   }
 }
+*/
 
 
 suite('Testing Math Library', function() {
@@ -101,7 +104,7 @@ suite('Testing Math Library', function() {
   suite('Testing derivative', function() {
 		var derivativeTestsArray = [
       {f:'x^2', result:'2*x'},
-      {f:'(x + 20000) * 1.0376293541461623e+19 / (1.152921504606847e+15 * (x + 20000))', result:'0'},
+      {f:'(x + 20000) * math.bignumber(1.0376293541461623e+19) / (math.bignumber(1.152921504606847e+15) * (x + 20000))', result:'0'},
 		];
     derivativeTestsArray.forEach(function(aTest) { 
       aTest.testName = '' + aTest.f + ' -> ' + aTest.result; 
@@ -119,6 +122,7 @@ suite('Testing Math Library', function() {
 
   suite('Testing simplify', function() {
 		var simplifyTestsArray = [
+      {f:'1.1529215046068e+18 / 1.1529215046068e+15', result:'1000'},
       {f:'1.15292150460684e+18 / 1.15292150460684e+15', result:'1000'},
       {f:'((((((((((1)) + ((0)))) * ((x + 2))) + (((x + 1)) * ((((1)) + ((0))))))) * ((x + 3))) - ((((x + 1) * (x + 2))) * ((((1)) + ((0)))))) / (((x + 3)) ^ (2)))', result:'1000'},
       {f:'a + b', result:'a + b'},
